@@ -18,3 +18,25 @@ const deleteJokeDtoInType = shape({
   id: id().isRequired(),
   }
 )
+const categoryJokeDtoInType = shape({
+
+}
+)
+const createcategoryJokeDtoInType = shape({
+    name: string().isRequired(),
+    id: id().isRequired()
+  }
+);
+const getcategoryJokeDtoInType = shape({
+    id: id().isRequired(),
+
+  }
+)
+const listcategoryJokeDtoInType = shape({
+
+  }
+)
+const deletecategoryJokeDtoInType = shape({
+  id: id().isRequired(),
+  }
+)

@@ -25,6 +25,32 @@ class JokeMongo extends UuObjectDao {
     }
     return await super.deleteOne(filter);
   }
-}
 
+  async category(awid, id) {
+   let filter = {
+     awid: awid, id: id
+  }
+    return await super.find(filter);
+  }
+  async createcategory(uuObject) {
+    return await super.insertOne(uuObject);
+  }
+  async getcategory(awid, id) {
+    let filter = {
+      awid: awid, id: id
+    }
+    return await super.findOne(filter);
+  }
+  async listcategory() {
+    return await super.find({
+    },{},null);
+  }
+  async deletecategory(awid, id) {
+    let filter =  {
+      awid: awid, id: id
+    }
+    return await super.deleteOne(filter);
+  }
+
+}
 module.exports = JokeMongo;
