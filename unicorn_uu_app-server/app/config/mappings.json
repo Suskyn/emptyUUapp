@@ -35,6 +35,31 @@
         "realization": "api/controllers/JokeController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "category/category": {
+        "realization": "api/controllers/CategoryController.category",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "category/getcategory": {
+        "realization": "api/controllers/CategoryController.getcategory",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "category/listcategory": {
+        "realization": "api/controllers/CategoryController.listcategory",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "category/createcategory": {
+        "realization": "api/controllers/CategoryController.createcategory",
+        "httpMethod": "POST",
+        "type": "CMD"
+      },
+      "category/deletecategory": {
+        "realization": "api/controllers/CategoryController.deletecategory",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

@@ -2,7 +2,6 @@
 const JokeAbl = require("../../abl/joke-abl.js");
 
 class JokeController {
-
   delete(ucEnv) {
     return JokeAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }
