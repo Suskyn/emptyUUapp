@@ -41,9 +41,11 @@ class CategoryAbl {
       dtoIn,
       validationResult,
       WARNINGS.deleteCategoryUnsupportedKeys.code,
-      Errors.Deletecategory.InvalidDtoIn
+      Errors.Deletecategory.InvalidDtoIn,
+
+        let dtoOut = {}
+
     );
-    let dtoOut = {}
     try {
       dtoOut= await this.dao.deletecategory(awid, dtoIn.id);
     } catch (e) {

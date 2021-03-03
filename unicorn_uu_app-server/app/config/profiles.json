@@ -52,6 +52,10 @@
       "category/deletecategory": {
         "sysStateList": ["active"],
         "profileList": ["AwidLicenseOwner","Authorities","Executives"]
+      },
+      "joke/setRating": {
+        "sysStateList": ["active"],
+        "profileList": ["AwidLicenseOwner","Authorities","Executives"]
       }
     }
   }

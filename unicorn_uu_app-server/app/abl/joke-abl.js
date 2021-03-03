@@ -18,6 +18,9 @@ const WARNINGS = {
   createJokeUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`,
   },
+  setRatingJokeUnsupportedKeys: {
+    code: `${Errors.SetRating.UC_CODE}unsupportedKeys`,
+  },
 }
 
 
@@ -32,6 +35,26 @@ class JokeAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("joke");
   }
+
+  async setRating(awid, dtoIn,rating) {
+    let validationResult = this.validator.validate("setRatingJokeDtoInType", dtoIn);
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.setRatingJokeUnsupportedKeys.code,
+      Errors.SetRating.InvalidDtoIn
+    );
+    let ratings = [];
+    ratings.push(rating);
+    let dtoOut = {}
+    try {
+      dtoOut= await this.dao.setRating(awid, ratings);
+
+    } catch (e) {
+      throw e;
+    }
+    return dtoOut
+  }
   async delete(awid, dtoIn) {
     let validationResult = this.validator.validate("deleteJokeDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
@@ -39,6 +62,7 @@ class JokeAbl {
       validationResult,
       WARNINGS.deleteJokeUnsupportedKeys.code,
       Errors.Delete.InvalidDtoIn
+
     );
 
 
@@ -59,13 +83,20 @@ class JokeAbl {
       dtoIn,
       validationResult,
       WARNINGS.getJokeUnsupportedKeys.code,
-      Errors.Get.InvalidDtoIn
-    );
-
+      Errors.Get.InvalidDtoIn);
+    delete dtoOut.ratings;
+    let averageRating = 0;
+    let ratingsSum = 0;
+    let totalRatings = 0;
+    jokeRatings.forEach(rating => {
+      ratingsSum = ratingSum + rating;
+      totalratings++
+      });
+    averageRating = ratingsSum/totalRatings;
 
     let dtoOut = {}
     try {
-      dtoOut= await this.dao.get(awid, dtoIn.id);
+      dtoOut= await this.dao.get(awid, dtoIn.id, averageRating);
     } catch (e) {
       throw e;
     }

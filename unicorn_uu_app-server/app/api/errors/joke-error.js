@@ -49,7 +49,19 @@ const Delete = {
 
 
 
+const SetRating = {
+  UC_CODE: `${JOKE_ERROR_PREFIX}setRating/`,
+  InvalidDtoIn: class extends UuAppUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${SetRating.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+};
+
 module.exports = {
+  SetRating,
   Delete,
   Get,
   List,

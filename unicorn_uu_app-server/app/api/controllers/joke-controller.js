@@ -2,6 +2,10 @@
 const JokeAbl = require("../../abl/joke-abl.js");
 
 class JokeController {
+
+  setRating(ucEnv) {
+    return JokeAbl.setRating(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
   delete(ucEnv) {
     return JokeAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

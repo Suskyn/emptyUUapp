@@ -60,6 +60,11 @@
         "realization": "api/controllers/CategoryController.deletecategory",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "joke/setRating": {
+        "realization": "api/controllers/JokeController.setRating",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }
