@@ -3,16 +3,7 @@
 const UuAppUseCaseError = require("./uu-app-use-case-error.js");
 const CATEGORY_ERROR_PREFIX = `${UuAppUseCaseError.ERROR_PREFIX}category/`;
 
-const Category = {
-  UC_CODE: `${CATEGORY_ERROR_PREFIX}category/`,
-  InvalidDtoIn: class extends UuAppUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Category.UC_CODE}invalidDtoIn`;
-      this.message = "DtoIn is not valid.";
-    }
-  },
-};
+
 
 const Getcategory = {
   UC_CODE: `${CATEGORY_ERROR_PREFIX}getcategory/`,
@@ -62,6 +53,5 @@ module.exports = {
   Deletecategory,
   Createcategory,
   Listcategory,
-  Getcategory,
-  Category
+  Getcategory
 };

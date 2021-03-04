@@ -36,11 +36,6 @@
         "httpMethod": "POST",
         "type": "CMD"
       },
-      "category/category": {
-        "realization": "api/controllers/CategoryController.category",
-        "httpMethod": "GET",
-        "type": "CMD"
-      },
       "category/getcategory": {
         "realization": "api/controllers/CategoryController.getcategory",
         "httpMethod": "GET",

@@ -1,8 +1,5 @@
 /* eslint-disable */
-const categoryDtoInType = shape({
 
-  }
-)
 const createCategoryDtoInType = shape({
     name: string().isRequired(),
   }

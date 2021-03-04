@@ -33,10 +33,6 @@
         "sysStateList": ["active"],
         "profileList": ["AwidLicenseOwner","Authorities","Executives"]
       },
-      "category/category": {
-        "sysStateList": ["active"],
-        "profileList": ["AwidLicenseOwner","Authorities","Executives"]
-      },
       "category/getcategory": {
         "sysStateList": ["active"],
         "profileList": ["AwidLicenseOwner","Authorities","Executives"]

@@ -14,9 +14,7 @@ class CategoryController {
   getcategory(ucEnv) {
     return CategoryAbl.getcategory(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }
-  category(ucEnv) {
-    return CategoryAbl.category(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
-  }
+
 }
 
 module.exports = new CategoryController();
