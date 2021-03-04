@@ -36,7 +36,7 @@ class JokeAbl {
     this.dao = DaoFactory.getDao("joke");
   }
 
-  async setRating(awid, dtoIn,rating) {
+  async setRating(awid, dtoIn,) {
     let validationResult = this.validator.validate("setRatingJokeDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -44,15 +44,19 @@ class JokeAbl {
       WARNINGS.setRatingJokeUnsupportedKeys.code,
       Errors.SetRating.InvalidDtoIn
     );
-    let ratings = [];
-    ratings.push(rating);
+    let joke = await this.dao.get(awid, dtoIn.id); //try catch na overenie joke if(!joke) // joke neexistuje
+    let ratings = joke.ratings || [];
+    ratings.push({rating: dtoIn.rating});
     let dtoOut = {}
+    joke.ratings= ratings
+    dtoIn.awid= awid
     try {
-      dtoOut= await this.dao.setRating(awid, ratings);
+      dtoOut= await this.dao.setRating(joke);
 
     } catch (e) {
       throw e;
     }
+    dtoOut.uuAppErrorMap = uuAppErrorMap
     return dtoOut
   }
   async delete(awid, dtoIn) {
@@ -64,6 +68,7 @@ class JokeAbl {
       Errors.Delete.InvalidDtoIn
 
     );
+
 
 
     let dtoOut = {}
@@ -84,25 +89,21 @@ class JokeAbl {
       validationResult,
       WARNINGS.getJokeUnsupportedKeys.code,
       Errors.Get.InvalidDtoIn);
-    delete dtoOut.ratings;
+    let joke = await this.dao.get(awid, dtoIn.id);
+    let ratings = joke.ratings
+    delete joke.ratings
     let averageRating = 0;
-    let ratingsSum = 0;
-    let totalRatings = 0;
-    jokeRatings.forEach(rating => {
-      ratingsSum = ratingSum + rating;
-      totalratings++
+    let ratingSum = 0;
+    let totalRatings = ratings.length;
+    ratings.forEach(rating => {
+      ratingSum = ratingSum + rating.rating;
       });
-    averageRating = ratingsSum/totalRatings;
+    averageRating = ratingSum/totalRatings;
+    joke.averageRating= averageRating
+    joke.totalRatings = totalRatings
 
-    let dtoOut = {}
-    try {
-      dtoOut= await this.dao.get(awid, dtoIn.id, averageRating);
-    } catch (e) {
-      throw e;
-    }
-
-    return dtoOut
-
+    joke.uuAppErrorMap = uuAppErrorMap
+    return joke
 
   }
 

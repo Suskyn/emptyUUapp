@@ -33,6 +33,7 @@ class CategoryAbl {
   constructor() {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("category");
+    this.jokedao = DaoFactory.getDao("joke");
   }
 
   async deletecategory(awid, dtoIn) {
@@ -41,11 +42,12 @@ class CategoryAbl {
       dtoIn,
       validationResult,
       WARNINGS.deleteCategoryUnsupportedKeys.code,
-      Errors.Deletecategory.InvalidDtoIn,
-
-        let dtoOut = {}
-
+      Errors.Deletecategory.InvalidDtoIn
     );
+    let dtoOut = {}
+
+    let jokeList  = this.jokedao.listByCategory(awid ,dtoIn.id); //if
+
     try {
       dtoOut= await this.dao.deletecategory(awid, dtoIn.id);
     } catch (e) {
@@ -104,25 +106,7 @@ class CategoryAbl {
     }
     return dtoOut
   }
-  async category(awid, dtoIn) {
 
-    let validationResult = this.validator.validate("categoryDtoInType", dtoIn);
-    let uuAppErrorMap = ValidationHelper.processValidationResult(
-      dtoIn,
-      validationResult,
-      WARNINGS.categoryUnsupportedKeys.code,
-      Errors.Category.InvalidDtoIn
-    );
-
-    let dtoOut = {}
-    try {
-      dtoOut= await this.dao.category(dtoIn);
-    } catch (e) {
-      throw e;
-    }
-    return dtoOut
-
-  }
 
 
 

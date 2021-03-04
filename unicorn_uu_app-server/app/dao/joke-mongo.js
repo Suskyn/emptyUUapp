@@ -19,11 +19,12 @@ class JokeMongo extends UuObjectDao {
     return await super.find({
     },{},null);
   }
-  async setRating() {
+  async setRating(uuObject) {
     let filter = {
-      awid: awid, id: id
+     awid: uuObject.awid,
+     id: uuObject.id
     }
-    return await super.findOne(filter);
+    return await super.findOneAndUpdate(filter, uuObject, "NONE");
   }
   async delete(awid, id) {
     let filter =  {
@@ -31,9 +32,10 @@ class JokeMongo extends UuObjectDao {
     }
     return await super.deleteOne(filter);
   }
-  async listByCategory(categoryId) {
+  async listByCategory(awid ,categoryId) {
     return await super.find({
-      categoryId:categoryId
+      category:categoryId,
+      awid: awid
     },{},null);
   }
 }

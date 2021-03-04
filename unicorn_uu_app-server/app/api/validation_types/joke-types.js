@@ -16,7 +16,7 @@ const listJokeDtoInType = shape({
 )
 const setRatingJokeDtoInType = shape({
   id:id().isRequired(),
-  rating:(1-5)
+  rating: integer().isRequired()
   }
 )
 const deleteJokeDtoInType = shape({
