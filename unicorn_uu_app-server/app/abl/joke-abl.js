@@ -36,7 +36,7 @@ class JokeAbl {
     this.dao = DaoFactory.getDao("joke");
   }
 
-  async setRating(awid, dtoIn,) {
+  async setRating(awid, dtoIn) {
     let validationResult = this.validator.validate("setRatingJokeDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
@@ -45,6 +45,11 @@ class JokeAbl {
       Errors.SetRating.InvalidDtoIn
     );
     let joke = await this.dao.get(awid, dtoIn.id); //try catch na overenie joke if(!joke) // joke neexistuje
+    try {
+      joke = await this.dao.get(awid, dtoIn.id)
+    } catch {
+      Errors.SetRating.InvalidDtoIn
+    }
     let ratings = joke.ratings || [];
     ratings.push({rating: dtoIn.rating});
     let dtoOut = {}

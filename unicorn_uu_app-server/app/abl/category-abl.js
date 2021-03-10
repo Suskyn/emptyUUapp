@@ -9,9 +9,6 @@ const WARNINGS = {
   getCategoryUnsupportedKeys: {
     code: `${Errors.Getcategory.UC_CODE}unsupportedKeys`,
   },
-  categoryUnsupportedKeys: {
-    code: `${Errors.Category.UC_CODE}unsupportedKeys`,
-  },
   listCategoryUnsupportedKeys: {
     code: `${Errors.Listcategory.UC_CODE}unsupportedKeys`,
   },
@@ -44,17 +41,29 @@ class CategoryAbl {
       WARNINGS.deleteCategoryUnsupportedKeys.code,
       Errors.Deletecategory.InvalidDtoIn
     );
+    let joke
     let dtoOut = {}
 
     let jokeList  = this.jokedao.listByCategory(awid ,dtoIn.id); //if
+    var length = jokeList.length;
+    if (length == 0){
+      try {
+        dtoOut= await this.dao.deletecategory(awid, dtoIn.id);
+      } catch (e) {
+        throw e;
+      }
+    } else {
 
-    try {
-      dtoOut= await this.dao.deletecategory(awid, dtoIn.id);
-    } catch (e) {
-      throw e;
+      for (var i = 0; i < length; i++) {
+        joke = this.jokedao.get(awid, dtoIn.id),
+          dtoOut= this.jokedao.delete(awid, dtoIn.id)
+      }
+
     }
     return dtoOut
+
   }
+
   async createcategory(awid, dtoIn) {
     let validationResult = this.validator.validate("createCategoryDtoInType", dtoIn);
     let uuAppErrorMap = ValidationHelper.processValidationResult(
